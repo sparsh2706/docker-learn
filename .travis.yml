@@ -1,0 +1,13 @@
+# Get Sudo privileges
+language: generic
+sudo: required
+# Need a copy of docker ready to go
+services:
+  - docker
+
+# Before Test Run, here we had to to tag it since we otherwise would be needing the image ID
+before_install:
+  - docker build -t sparsh/docker-react -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=true sparsh/docker-react npm run test
